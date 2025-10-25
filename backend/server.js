@@ -16,8 +16,13 @@ app.get("/", (req, res) => {
 // tasks api
 app.use("/tasks", tasksRouter);
 
-// start server
-const PORT = 4000;
-app.listen(PORT, () => {
-  console.log(`✅ API server running at http://localhost:${PORT}`);
-});
+// start server (local development)
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = 4000;
+  app.listen(PORT, () => {
+    console.log(`✅ API server running at http://localhost:${PORT}`);
+  });
+}
+
+// Export for Vercel serverless
+module.exports = app;
